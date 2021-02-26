@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<title>Hello World</title>
+<style>
+  .wrapper{
+    width: 300px;
+    height: 300px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrapper text-center">
+    <h3 class="mt-3 mb-3">Simple Screen Recorder</h3>
+
+    <div id="recording">
+      <button class="btn btn-primary" id="start">Start Recording</button>
+      <button class="btn btn-danger" id="stop" disabled>Stop Recording</button>
+    </div>
+
+    <div class="img-thumbnail m-2">
+      <video style="width: 100%;" autoplay></video>
+    </div>
+
+    <div class="mt-2" id="editing">
+      <button class="btn btn-success" id="download">Download</button>
+      <button class="btn btn-danger" id="remove">Remove</button>
+    </div>
+  </div>
+
+  <script src="./popup.js"></script>
+</body>
+</html>

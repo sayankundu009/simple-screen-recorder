@@ -1,0 +1,28 @@
+{
+  "name": "Simple Screen Recorder",
+  "version": "1.0",
+  "description": "Simple Screen Recorder",
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": ["content.js"]
+  }],
+  "permissions": ["activeTab","storage"],
+  "manifest_version": 2
+}
