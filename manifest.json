@@ -1,7 +1,7 @@
 {
   "name": "Simple Screen Recorder",
-  "version": "1.0",
-  "description": "Simple Screen Recorder",
+  "version": "0.1",
+  "description": "A simple screen recorder extension",
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",
@@ -15,14 +15,18 @@
       "48": "images/icon48.png",
       "128": "images/icon128.png"
     },
-    "default_popup": "popup.html"
+    "default_popup": "index.html"
+  },
+  "background": {
+    "scripts": ["src/background.js"],
+    "persistent": false
   },
   "content_scripts": [{
     "matches": [
       "<all_urls>"
     ],
-    "js": ["content.js"]
+    "js": ["src/content.js"]
   }],
-  "permissions": ["activeTab","storage"],
+  "permissions": ["activeTab","storage","downloads","desktopCapture"],
   "manifest_version": 2
 }

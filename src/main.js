@@ -6,10 +6,8 @@ const download = document.getElementById("download");
 const editing = document.getElementById("editing");
 const recording = document.getElementById("recording");
 
-
 start.addEventListener("click", () => {
   start.setAttribute("disabled", true);
-  stop.removeAttribute("disabled");
 
   chrome.tabs.query({currentWindow: true, active: true}, function ([activeTab]){
     chrome.tabs.sendMessage(activeTab.id, {"message": "start"});
@@ -17,9 +15,6 @@ start.addEventListener("click", () => {
 });
 
 stop.addEventListener("click", () => {
-  stop.setAttribute("disabled", true);
-  start.removeAttribute("disabled");
-
   chrome.tabs.query({currentWindow: true, active: true}, function ([activeTab]){
     chrome.tabs.sendMessage(activeTab.id, {"message": "stop"});
   });
@@ -34,16 +29,15 @@ remove.addEventListener("click", () => {
 download.addEventListener("click", () => {
     const data = video.src;
 
-    const link = document.createElement('a');
-    link.href = data;
-    link.download = "video.mp4"
-
-    link.click();
-
-    setTimeout(() => {
-      link.remove();
-    }, 100);
+    chrome.downloads.download({
+      filename: "Capture.webm",
+      url: data 
+    });
 });
+
+video.addEventListener("click", () => {
+  if(video.src) window.open(video.src)
+})
 
 // Get Video
 chrome.storage.local.get("video_data", function(items) {
@@ -60,17 +54,17 @@ chrome.storage.local.get("isRecording", function(items) {
 chrome.storage.onChanged.addListener(function(changes, areaName) {
     const { video_data , isRecording} = changes
 
-    isRecording !== undefined && handelRecording(isRecording.newValue);
     video_data !== undefined && handelVideo(video_data.newValue);
+    isRecording !== undefined && handelRecording(isRecording.newValue);
 });
 
 function showRecording(){
   editing.style.display = "none"
-  recording.style.display = "block"
+  recording.style.removeProperty("display");
 }
 
 function showEditing(){
-  editing.style.display = "block"
+  editing.style.removeProperty("display");
   recording.style.display = "none"
 }
 
@@ -86,10 +80,11 @@ function handelVideo(video_data){
 
 function handelRecording(isRecording){
   if(isRecording){
-    start.setAttribute("disabled", true);
-    stop.removeAttribute("disabled");
+    start.style.display = "none";
+    stop.style.removeProperty("display");
   }else{
-    stop.setAttribute("disabled", true);
+    start.style.removeProperty("display");
+    stop.style.display = "none";
     start.removeAttribute("disabled");
   }
 }
